@@ -1,0 +1,48 @@
+/* Program for sequential blinking LEDs
+   January 16, 2021
+   Modified Code
+   Released under GNU GPL
+*/
+
+// Declaring the blink module
+module helloworldfpga(
+    output wire redled,
+    output wire greenled,
+    output wire blueled
+);
+
+    // Clock signal
+    wire clk;
+
+    // Instantiate the system clock
+    qlal4s3b_cell_macro u_qlal4s3b_cell_macro (
+        .Sys_Clk0(clk)
+    );
+
+    // Registers for delay counter and LED control
+    reg [26:0] delay;  // Counter for delay
+    reg [1:0] state;   // State to control which LED is ON (2-bit state machine)
+
+    // State encoding
+    localparam RED = 2'b00;
+    localparam GREEN = 2'b01;
+    localparam BLUE = 2'b10;
+
+    // Sequential logic for delay and state transitions
+    always @(posedge clk) begin
+        delay <= delay + 1; // Increment the counter
+        
+        // Check if delay threshold is reached
+        if (delay > 20000000) begin // 1-second delay
+            delay <= 27'b0; // Reset the counter
+            state <= state + 1; // Move to the next state
+        end
+    end
+
+    // Output logic based on state
+    assign redled = (state == RED);
+    assign greenled = (state == GREEN);
+    assign blueled = (state == BLUE);
+
+endmodule
+// End of the module
