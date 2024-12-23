@@ -1,0 +1,18 @@
+module disp_7447_fpga (
+    input wire W,   // Input W (corresponding to digitalRead(6))
+    input wire X,   // Input X (corresponding to digitalRead(7))
+    input wire Y,   // Input Y (corresponding to digitalRead(8))
+    input wire Z,   // Input Z (corresponding to digitalRead(9))
+    output wire A,  // Output A (corresponding to digitalWrite(2))
+    output wire B,  // Output B (corresponding to digitalWrite(3))
+    output wire C,  // Output C (corresponding to digitalWrite(4))
+    output wire D   // Output D (corresponding to digitalWrite(5))
+);
+
+    // Logic for the outputs
+    assign A = Z; // Corresponds to digitalWrite(2, A)
+    assign B = Y; // Corresponds to digitalWrite(3, B)
+    assign C = X; // Corresponds to digitalWrite(4, C)
+    assign D = W; // Corresponds to digitalWrite(5, D)
+
+endmodule
