@@ -1,0 +1,20 @@
+module helloworldfpga(
+   output A,  // Corresponds to A (LSB)
+    output B,  // Corresponds to B
+     output C,  // Corresponds to C
+   output D  // Corresponds to D (MSB)
+   );
+  wire clk;
+wire W = 0;
+wire X = 0;
+wire Y = 1;
+wire Z = 0;
+ // Instantiate the system clock
+  qlal4s3b_cell_macro u_qlal4s3b_cell_macro (
+     .Sys_Clk0 (clk)
+  );
+assign A =  (~W && ~ Y) || (~W && Y && ~Z);
+  assign B = (~W && ~X && ~Y) || (W && X && ~Z ) || (~W && ~X && Y && ~Z);
+assign C = (~W && ~X && ~Y) || (W && Y && ~Z) || (~W && X && Y && ~Z);
+  assign D = (~W && ~X && ~Y && ~ Z) || (W && ~X &&  ~Y && Z) || (~W && X && ~Y && Z);
+ endmodule
